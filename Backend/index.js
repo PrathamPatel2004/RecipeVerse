@@ -6,6 +6,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import connectDB from './config/connectDB.js';
+import authRouter from './routes/auth.routes.js';
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -21,6 +22,8 @@ app.use(cookieParser());
 app.get('/', (req, res) => {
     res.send({ message: "Backend is running on port " + PORT });  
 })
+
+app.use('/api/auth', authRouter);
 
 connectDB().then(() => {
     app.listen(PORT, () => console.log("Server is running on port " + PORT));
